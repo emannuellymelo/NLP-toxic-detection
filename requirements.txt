@@ -4,3 +4,4 @@ numpy
 pandas
 nltk
 scikit-learn
+unidecode
