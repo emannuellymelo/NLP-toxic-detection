@@ -5,3 +5,4 @@ pandas
 nltk
 scikit-learn
 unidecode
+Flask-CORS

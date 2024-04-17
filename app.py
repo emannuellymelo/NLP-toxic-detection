@@ -20,11 +20,11 @@ import unicodedata
 import unidecode
 import os
 from flask import Flask, request, render_template, make_response, jsonify
-#from flask_cors import CORS
+from flask_cors import CORS
 import joblib
 
 app = Flask(__name__, template_folder='template', static_folder='template')
-#CORS(app, origins='http://localhost:5173', methods=['GET', 'POST'])
+CORS(app)
 
 model = joblib.load('model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
