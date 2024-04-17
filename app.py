@@ -20,7 +20,7 @@ import unicodedata
 import unidecode
 import os
 from flask import Flask, request, render_template, make_response, jsonify
-from flask_cors import CORS
+#from flask_cors import CORS
 import joblib
 
 app = Flask(__name__, template_folder='template', static_folder='template')
