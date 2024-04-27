@@ -1,25 +1,12 @@
-import numpy as np
-import pandas as pd
-import nltk
-from nltk import word_tokenize
 from nltk.stem import SnowballStemmer
 import re
-from sklearn import svm
-from sklearn import metrics
-from sklearn.model_selection import cross_val_predict
-from sklearn.feature_extraction.text import CountVectorizer, TfidfVectorizer
-from sklearn.model_selection import train_test_split
-from sklearn import metrics
-from sklearn.naive_bayes import MultinomialNB
 from nltk import download
 download("stopwords")
 download('punkt')
 from nltk.corpus import stopwords
 from re import sub
-import unicodedata
 import unidecode
-import os
-from flask import Flask, request, render_template, make_response, jsonify
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 
@@ -28,7 +15,6 @@ CORS(app)
 
 model = joblib.load('model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
-
 
 #funcoes de limpeza    
 def remove_accent_mark(data):
@@ -99,12 +85,10 @@ for i in range(len(stop_words)):
   stop_words[i] = remove_accent_mark(stop_words[i])
 
 frequent_bad_word = "merda"
-def checkNumbersOnStrings(text):
-  aux = False
+def check_alphanumeric(text):
   output = []
   for word in text.split(" "):
     if(not(word.isdigit() or word.isalpha()) and word != ''):
-      aux = True
       output.append(frequent_bad_word)
     else:
       output.append(word)
@@ -129,12 +113,10 @@ def clean(text):
   text = sub("^\d+\s|\s\d+\s|\s\d+$", "", text)
   text = sub('[,.!?;:/>@_#"(]', '', text)
   text = re.sub(r"http\S+", "", text).lower().replace('.','').replace(';','').replace('-','').replace(':','').replace(')','')
-  text = checkNumbersOnStrings(text),
+  text = check_alphanumeric(text),
   text = check_accent_mark(text)
   text = ' '.join(i for i in text.split() if not(i in stop_words) and len(i) >= 2 and (not any (c.isdigit() for c in i)))
   return text
-
-#flask routes
 
 @app.route('/analyse', methods=['POST'])
 def analyse():
