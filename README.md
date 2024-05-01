@@ -5,13 +5,18 @@
 ## 📑 Sumário
 
 - [Sobre](#about)
+- [Acesso](#access)
 - [Base de Dados](#database)
-- [Resultado](#results)
+- [Resultados](#results)
 - [Licença](#license)
 
 ## 📝 Sobre <a name = "about"></a>
 
 Este projeto está atrelado ao meu Trabalho de Conclusão de Curso (TCC), o qual se trata de um [sistema web](https://fubby.vercel.app) informativo e interativo de apoio para decisões acadêmicas para alunos do Curso de Ciência da Computação na UFCG. Nesse sistema, existe uma seção com comentários de caráter anônimo sobre disciplinas, o que pode dar brechas para pessoas mal intencionadas realizarem comentários ofensivos e inapropriados dentro da proposta de um ambiente colaborativo. Diante disso, foi criado um modelo de classificação de possíveis comentários tóxicos para evitar que esse tipo de conteúdo seja publicado.
+
+## 🛜 Acesso <a name = "access"></a>
+
+A API pode ser acessada e consultada por meio do endereço: [nlp-toxic-detection.onrender.com/analyse](https://nlp-toxic-detection.onrender.com/analyse)
 
 ## 🎲 Base de Dados <a name = "database"></a>
 
