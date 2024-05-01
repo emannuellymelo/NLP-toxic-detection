@@ -10,13 +10,13 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 import joblib
 
-app = Flask(__name__, template_folder='template', static_folder='template')
+app = Flask(__name__)
 CORS(app)
 
 model = joblib.load('model.pkl')
 vectorizer = joblib.load('vectorizer.pkl')
 
-#funcoes de limpeza    
+#Funcoes de limpeza para tratar novos comentarios    
 def remove_accent_mark(data):
   return unidecode.unidecode(data)
 
@@ -80,10 +80,11 @@ stop_words.append("didática")
 stop_words.append("pra")
 stop_words.append("-")
 
-# removendo acentuacao de stop words
+#Remocao de acentuacao nas stop words
 for i in range(len(stop_words)):
   stop_words[i] = remove_accent_mark(stop_words[i])
 
+#Identificacao e rotularizacao de alfanumericos
 frequent_bad_word = "merda"
 def check_alphanumeric(text):
   output = []
@@ -123,21 +124,19 @@ def analyse():
     data = request.json
     text = data['comment']
     text = [text]
-    print("Comentario: {}".format(text))
 
-    # Limpa dados de teste
+    # Limpa o comentario recebido
     text = [clean(str(i)) for i in text]
     text = [stemmer(str(i)) for i in text]
 
-    # Transforma os dados de teste em vetores de palavras.
+    # Transforma os dados recebidos em vetores de palavras.
     vector_testes = vectorizer.transform(text)
 
     healthy = -1
-    # Fazendo a classificação com o modelo treinado.
+    # Classificacao com o modelo treinado.
     for t, c in zip (text,model.predict(vector_testes)):
         healthy = c
 
-    print("Classe: {} ", healthy)
     result = { 'result' : str(healthy)}
     return jsonify(result)
 
